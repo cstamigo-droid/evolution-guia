@@ -77,7 +77,7 @@
   .barra { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; display: flex; justify-content: space-between; align-items: center; gap: 12px;
     background: var(--violeta-osc); border-bottom: 1px solid var(--violeta); font: 700 14px/1.2 'DM Sans', sans-serif; padding: 10px 16px; }
   .barra a { color: var(--lima); }
-  .portada { position: relative; overflow: hidden; padding: 64px 24px 32px; margin: 0 -24px; min-height: 520px;
+  .portada { position: relative; overflow: hidden; padding: 64px 16px 32px; margin: 0 -16px; min-height: 520px;   /* = gutter de .hoja */
     display: flex; flex-direction: column; justify-content: flex-end; }
   .portada > * { position: relative; }
   .portada-foto { position: absolute !important; inset: 0; background-size: cover; background-position: center; filter: grayscale(1) contrast(1.15) brightness(.55); }
@@ -521,7 +521,7 @@ con tu propia cuenta, Cristian tiene una guía paso a paso con fotos (unos 15 mi
   <div class="acciones solo-web">
     <button type="button" class="boton" id="enviar">📧 Enviar a Cristian</button>
     <a class="boton sec" id="wsp" href="https://wa.me/" target="_blank" rel="noopener">Mandar por WhatsApp</a>
-    
+    <a id="correo" hidden></a>
     <button type="button" class="boton sec" id="copiar">Copiar el resumen</button>
   </div>
   <p class="suave solo-web"><span id="estado-envio" aria-live="polite"></span> «Enviar a Cristian» le manda tus marcas y comentarios a su correo. Puedes enviar más de una vez: le llega lo último. Si algo falla, usa «Mandar por WhatsApp» o «Copiar el resumen».</p>
@@ -685,20 +685,13 @@ Object.keys(estado).forEach(pintarRev); pintarResumen();
 })();
 </script>
 
-<a class="flotante" href="#resumen">📧 Enviar correcciones</a>
 <style>
-  .flotante { position: fixed; z-index: 50; left: 50%; transform: translateX(-50%); bottom: calc(14px + env(safe-area-inset-bottom, 0px));
-    background: var(--lima); color: var(--tinta); font: 700 15px/1 'DM Sans', sans-serif; padding: 14px 20px; border-radius: 999px;
-    text-decoration: none; box-shadow: 0 6px 24px #0008; white-space: nowrap; }
   #estado-envio { display: block; font-weight: 700; color: var(--lima); margin-bottom: 6px; }
   #estado-envio:empty { display: none; }
-  @media print { .flotante { display: none; } }
 </style>
 <script>
 (() => {
   const b = document.getElementById('enviar'), st = document.getElementById('estado-envio');
-  const flot = document.querySelector('.flotante'), res = document.getElementById('resumen');
-  new IntersectionObserver(([x]) => { flot.hidden = x.isIntersecting; }).observe(res);
   b.addEventListener('click', async () => {
     const t = textoResumen();
     if (!t.includes('\n')) { st.textContent = 'Todavía no marcas ninguna pieza ni escribes un comentario.'; return; }
