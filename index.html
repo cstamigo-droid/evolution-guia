@@ -697,7 +697,7 @@ Object.keys(estado).forEach(pintarRev); pintarResumen();
     if (!t.includes('\n')) { st.textContent = 'Todavía no marcas ninguna pieza ni escribes un comentario.'; return; }
     b.disabled = true; st.textContent = 'Enviando…';
     try {
-      const r = await fetch('https://formsubmit.co/ajax/cstamigo@gmail.com', { method: 'POST',
+      const r = await fetch('https://formsubmit.co/ajax/ac9c52ac2648a9e39c9831ba98de8769', { method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({ _subject: 'Correcciones a la guía del mes 1 (EVOLUTION)', _template: 'box', _captcha: 'false',
                                Correcciones: t, Enviado: new Date().toLocaleString('es-CL') }) });
